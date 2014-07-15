@@ -88,5 +88,6 @@ var AutoComplete = DelayedInput.extend({
     this.set('popup', true);
   }
 });
+AutoComplete.DelayedInput = DelayedInput;
 
 module.exports = AutoComplete;
