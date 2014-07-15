@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>ractive-autocomplete Example</title>
+    <link rel="stylesheet" type="text/css" href="build/build.css" />
+  </head>
+  <body>
+    <div id="container"></div>
+    <script type="text/javascript" src="build/build.js"></script>
+    <script type="text/javascript">
+      var Input = require('ractive-autocomplete');
+
+      var ractive = new Ractive({
+        el: 'container', template: '<AutoComplete />', components: { 'AutoComplete': Input }
+      });
+      var auto = ractive.findComponent('AutoComplete');
+      auto.completeWith(function(v) {
+        return [v + '1', v + '2', v + '3', v + '4'];
+      });
+    </script>
+  </body>
+</html>
