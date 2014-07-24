@@ -12,11 +12,19 @@
       var Input = require('ractive-autocomplete');
 
       var ractive = new Ractive({
-        el: 'container', template: '<AutoComplete />', components: { 'AutoComplete': Input }
+        el: 'container', template: 'Instant: <AutoComplete on-complete="log" /><br/>Promised: <AutoComplete on-complete="log" />', components: { 'AutoComplete': Input }
       });
-      var auto = ractive.findComponent('AutoComplete');
-      auto.completeWith(function(v) {
+      ractive.on('log', function(v) { console.log(v); });
+      var auto = ractive.findAllComponents('AutoComplete');
+      auto[0].completeWith(function(v) {
         return [v + '1', v + '2', v + '3', v + '4'];
+      });
+      auto[1].completeWith(function(v) {
+        return new Ractive.Promise(function(done) {
+          setTimeout(function() {
+            done([v + '1slow', v + '2slow', v + '3slow', v + '4slow']);
+          }, 2000);
+        });
       });
     </script>
   </body>

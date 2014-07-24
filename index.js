@@ -3,44 +3,44 @@ var DelayedInput = require('ractive-delayed-input');
 var AutoComplete = DelayedInput.extend({
   init: function() {
     var me = this;
-    DelayedInput.prototype.init.call(this);
-    this.on('blurred', function() {
+    DelayedInput.prototype.init.call(me);
+    me.on('blurred', function() {
       if (!!me.blurTime) {
         clearTimeout(me.blurTime);
         me.blurTime = null;
       }
       me.blurTime = setTimeout(function() {
         me.set('popup', false);
+        me.fire('complete', me.get('value'));
       }, 200);
     });
-    this.on('popup', function() {
-      this.popup();
+    me.on('popup', function() {
+      me.popup();
     });
-    this.on('changed', function(v) {
-      var fn = me.get('complete');
-      if (!!fn && typeof fn === 'function') me.set({
-        completions: fn(v),
-        popup: true
-      });
+    me.on('changed', function(v) {
+      me.refresh(v);
     });
-    this.on('key', function(e) {
+    me.on('key', function(e) {
       var k = e.original.keyCode;
       if (k === 27) {
         me.set('popup', false);
       } else if (k === 38 || k === 40) {
         e.original.preventDefault();
         if (!me.get('popup')) {
-          this.popup();
+          me.popup();
           return;
         }
-        var c = this.get('currentIndex');
-        this.current(k === 38 ? c - 1 : c + 1);
+        var c = me.get('currentIndex');
+        me.current(k === 38 ? c - 1 : c + 1);
       } else if (k === 13) {
         e.original.preventDefault();
         me.set('popup', false);
+        var v = me.find('input').value;
+        me.set('value', v);
+        me.fire('complete', v);
       }
     });
-    this.on('clicked', function(e) {
+    me.on('clicked', function(e) {
       if (!!me.blurTime) {
         clearTimeout(me.blurTime);
         me.blurTime = null;
@@ -48,9 +48,10 @@ var AutoComplete = DelayedInput.extend({
       e.original.preventDefault();
       var ul = e.node.querySelector('ul');
       for (var i = 0; i < ul.children.length; i++) if (ul.children[i] === e.original.target) break;
-      this.current(i);
-      this.set('popup', false);
+      me.current(i);
+      me.set('popup', false);
       e.node.parentNode.querySelector('input').focus();
+      me.fire('complete', me.get('value'));
     });
 
     var fn = me.get('complete');
@@ -82,10 +83,26 @@ var AutoComplete = DelayedInput.extend({
   popup: function() {
     var list = this.get('completions');
     if (!!!list) {
-      var fn = this.get('complete');
-      if (!!fn && typeof fn === 'function') this.set('completions', fn(this.get('value')));
+      this.refresh(this.get('value'));
     }
     this.set('popup', true);
+  },
+  refresh: function(v) {
+    var me = this;
+    var fn = me.get('complete');
+    if (!!fn && typeof fn === 'function') {
+      var res = fn(v);
+      if (!!res && typeof res.then === 'function') {
+        res.then(function(rs) {
+          me.set({ completions: rs, popup: true });
+        });
+      } else {
+        me.set({
+          completions: res,
+          popup: true
+        });
+      }
+    }
   }
 });
 AutoComplete.DelayedInput = DelayedInput;
