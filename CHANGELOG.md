@@ -1,3 +1,7 @@
+## 0.2.0
+
+* Adds support for having different value and display members.
+
 ## 0.1.0
 
 * Adds support for promised completions. When the complete function returns a promise, completions will be set from its resolution.
