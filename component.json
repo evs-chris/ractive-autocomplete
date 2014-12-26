@@ -1,0 +1,10 @@
+{
+  "name": "ractive-autocomplete",
+  "repository": "evs-chris/ractive-autocomplete",
+  "description": "Ractive input component with autocompletion",
+  "version": "0.3.0",
+  "scripts": ["index.js"],
+  "styles": ["index.css"],
+  "main": "index.js",
+  "license": "MIT"
+}
