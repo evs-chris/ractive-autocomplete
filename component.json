@@ -2,10 +2,7 @@
   "name": "ractive-autocomplete",
   "repository": "evs-chris/ractive-autocomplete",
   "description": "Ractive input component with autocompletion",
-  "version": "0.2.0",
-  "dependencies": {
-    "evs-chris/ractive-delayed-input": "^0"
-  },
+  "version": "0.3.0",
   "scripts": ["index.js"],
   "styles": ["index.css"],
   "main": "index.js",

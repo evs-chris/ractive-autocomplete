@@ -1,2 +1,5 @@
 build/
 components/
+node_modules/
+.gobble*/
+.giblets/

@@ -1,0 +1,7 @@
+{
+  "development": {
+    "giblethub": [
+      { "repo": "ractivejs/ractive", "version": "edge", "scripts": [{ "file": "ractive.js", "target": "index.js" }] }
+    ]
+  }
+}

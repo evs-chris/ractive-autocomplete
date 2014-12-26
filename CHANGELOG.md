@@ -1,3 +1,10 @@
+## 0.3.0
+
+* Now uses laziness built into Ractive instead of DelayedInput
+* There is now a value binding available to use instead of having to listen to `complete` events for changes.
+* `displayMember` may now be a function, and there is no `valueMember` any more.
+* `completeWith` may now be bound as a component parameter.
+
 ## 0.2.0
 
 * Adds support for having different value and display members.

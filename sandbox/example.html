@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>ractive-autocomplete Example</title>
+    <link rel="stylesheet" type="text/css" href="/assets/index.css" />
+  </head>
+  <body>
+    <div id="container"></div>
+    <script type="text/javascript" src="/lib/ractive/index.js"></script>
+    <script type="text/javascript" src="/ractive-autocomplete.js"></script>
+    <script type="text/javascript">
+      Ractive.components.AutoComplete = RactiveAutocomplete['default'];
+
+      var ractive = new Ractive({
+        el: 'container', template: 'Instant: <AutoComplete on-complete="log" /><br/>Promised: <AutoComplete on-complete="log" /><br/>All Declarative: <AutoComplete on-complete="log" completeWith="{{completions}}" displayMember="{{display}}" value="{{foo}}" /><button on-click="toggleMember()">Switch Member Type</button>',
+        data: {
+          completions: function(v) {
+            return [
+              { label: v + '1', value: 'a_' + v + '_1' },
+              { label: v + '2', value: 'a_' + v + '_2' },
+              { label: v + '3', value: 'a_' + v + '_3' },
+              { label: v + '4', value: 'a_' + v + '_4' }
+            ];
+          },
+          display: 'label',
+          foo: { label: 'Demo', value: 'Demo Value' }
+        },
+        toggleMember: function() {
+          if (typeof this.get('display') === 'string') {
+            this.set('display', function(v) { return 'computed ' +  v.value; });
+          } else {
+            this.set('display', 'label');
+          }
+        }
+      });
+      ractive.on('log', function() { console.log(arguments); });
+      var auto = ractive.findAllComponents('AutoComplete');
+      auto[0].completeWith(function(v) {
+        return [v + '1', v + '2', v + '3', v + '4'];
+      });
+      auto[1].completeWith(function(v) {
+        return new Ractive.Promise(function(done) {
+          setTimeout(function() {
+            done([v + '1slow', v + '2slow', v + '3slow', v + '4slow']);
+          }, 2000);
+        });
+      });
+    </script>
+  </body>
+</html>
