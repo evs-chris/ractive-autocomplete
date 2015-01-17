@@ -32,7 +32,7 @@ export default Ractive.extend({
     }, { init: false });
   },
   onrender() {
-    var cpl, val;console.log('render');
+    var cpl, val;
 
     this.on('clicked', (e) => {
       var i, child, ul = this.find('ul'), found = -1;
