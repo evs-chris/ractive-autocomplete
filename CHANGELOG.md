@@ -1,3 +1,7 @@
+## 0.3.1
+
+* Removes leftover debug logging statement
+
 ## 0.3.0
 
 * Now uses laziness built into Ractive instead of DelayedInput
