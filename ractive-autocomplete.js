@@ -50,7 +50,7 @@
     },
     onrender: function () {
       var _this2 = this;
-      var cpl, val;console.log("render");
+      var cpl, val;
 
       this.on("clicked", function (e) {
         var i, child, ul = _this2.find("ul"), found = -1;
