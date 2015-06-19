@@ -13,7 +13,7 @@
       Ractive.components.AutoComplete = RactiveAutocomplete['default'];
 
       var ractive = new Ractive({
-        el: 'container', template: 'Instant: <AutoComplete on-complete="log" /><br/>Promised: <AutoComplete on-complete="log" /><br/>All Declarative: <AutoComplete on-complete="log" completeWith="{{completions}}" displayMember="{{display}}" value="{{foo}}" /><button on-click="toggleMember()">Switch Member Type</button>',
+        el: 'container', template: 'Instant: <AutoComplete on-complete="log" /><br/>Promised: <AutoComplete on-complete="log" placeholder="Promised" /><br/>All Declarative: <AutoComplete on-complete="log" completeWith="{{completions}}" displayMember="{{display}}" value="{{foo}}" /><button on-click="toggleMember()">Switch Member Type</button>',
         data: {
           completions: function(v) {
             return [

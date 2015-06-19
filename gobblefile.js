@@ -5,7 +5,7 @@ var path = require('path');
 var parts = [], dev = gobble.env() !== 'production';
 
 var transpilerOptions = {
-  blacklist: ['modules', 'useStrict']
+  blacklist: ['es6.modules', 'useStrict']
 };
 
 // in dev mode, make libraries and the sandbox available
@@ -16,7 +16,7 @@ if (dev) {
 
 var source = gobble('src');
 
-var es5source = gobble(source).transform('6to5', transpilerOptions);
+var es5source = gobble(source).transform('babel', transpilerOptions);
 
 // build the main UMD module
 var moduled = gobble(es5source)

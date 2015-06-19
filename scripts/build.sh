@@ -14,7 +14,7 @@ if [[ $? -ne 0 ]]; then
 fi
 
 # fill in the rest of the files
-cp README.md LICENSE.md component.json giblet.json build
+cp README.md LICENSE.md component.json giblet.json package.json build
 
 # move to the build branch
 git checkout build

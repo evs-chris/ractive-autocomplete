@@ -1,13 +1,19 @@
 /* global Ractive */
 
-var template = `<div class="ractive-autocomplete"><input value="{{text}}" on-blur="blurred()" on-dblclick="popup()" on-keydown="keydown" /><div on-click="clicked">
+var template = `<div class="ractive-autocomplete"><input value="{{text}}" on-blur="blurred()" on-dblclick="popup()" on-keydown="keydown" {{#if .placeholder}}placeholder="{{.placeholder}}"{{/if}} /><div on-click="clicked">
 {{#popup}}
 <ul>{{#completions:i}}<li {{#isCurrent(i)}}class="current"{{/}}>{{display(.)}}</li>{{/}}</ul>
 {{/}}</div></div>`;
 
+function isCurrent(idx) { return this.get('current') === idx; }
+function display(member) {
+  return this.display(member);
+}
+
 export default Ractive.extend({
   template: template,
   lazy: 500,
+  isolated: true,
   oninit() {
     this.observe('text', (cur, prev) => {
       // only do completion lookup if this is not from a `select`
@@ -71,16 +77,17 @@ export default Ractive.extend({
       this.select(0, false);
     }
   },
-  data: {
-    isCurrent(idx) { return this.get('current') === idx; },
-    display(member) {
-      return this.display(member);
-    },
-    completions: [],
-    current: -2,
-    popup: false,
-    currentText: '',
-    currentVal: ''
+  data() {
+    return {
+      isCurrent,
+      display,
+      completions: [],
+      current: -2,
+      popup: false,
+      currentText: '',
+      currentVal: '',
+      text: ''
+    };
   },
   blurred() {
     if (this.blurTime) {
