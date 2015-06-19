@@ -1,0 +1,20 @@
+{
+  "name": "ractive-autocomplete",
+  "private": true,
+  "license": "MIT",
+  "version": "0.4.0",
+  "author": "Chris Reeves <chris@ev-soft.net> https://github.com/evs-chris",
+  "main": "ractive-autocomplete.js",
+  "files": ["ractive-autocomplete.js", "LICENSE.md", "README.md", "package.json"],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/evs-chris/ractive-autocomplete.git"
+  },
+  "scripts": {
+    "build": "./scripts/build.sh"
+  },
+  "devDependencies": {
+    "gobble": "^0",
+    "sander": "^0"
+  }
+}

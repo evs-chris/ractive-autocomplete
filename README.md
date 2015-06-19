@@ -28,7 +28,7 @@ To use AutoComplete, add component reference to your template.
 
 ### Events
 
-* `comlpete` - Fires when a completion is selected. Parameters:
+* `comlpete` - fires when a completion is selected. Parameters:
   1. `text` - the text of the selected completion
   2. `index` - the index of the selected completion
   3. `value` - the selected completion
