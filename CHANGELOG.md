@@ -1,3 +1,10 @@
+## 0.4.0
+
+* The component now uses an isolated scope.
+* Fixes placeholder handling
+* Removes Ractive deprecation warnings
+* The package manifest is now available on the build branch.
+
 ## 0.3.1
 
 * Removes leftover debug logging statement
